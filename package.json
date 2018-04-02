@@ -1,12 +1,15 @@
 {
   "name": "draw.app",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "index.js",
   "repository": "https://github.com/sorja/draw.app",
   "author": "Miro Sorja <ping@mirosorja.com>",
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.3",
     "socket.io": "^2.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
   }
 }
