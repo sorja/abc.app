@@ -1,0 +1,13 @@
+#+TITLE: Project insights: todos, ideas, etc
+ctrl alt o + t
+* Todos
+** DONE Add socket.io. [2018-4-2 Mon]
+** DONE Add drawing. [2018-4-2 Mon]
+** DONE Add drawing from history. [2018-4-2 Mon]
+
+* In scope
+** Sessions
+    *** Play Sessions [1-4 players]
+    *** Authentication
+
+* Ideas
