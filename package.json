@@ -1,8 +1,8 @@
 {
-  "name": "draw.app",
+  "name": "abc.app",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/sorja/draw.app",
+  "repository": "https://github.com/sorja/abc.app",
   "author": "Miro Sorja <ping@mirosorja.com>",
   "license": "MIT",
   "dependencies": {
