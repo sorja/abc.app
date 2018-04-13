@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 app.use(express.static(__dirname + '/public'));
 
@@ -24,5 +24,9 @@ const onConnection = socket => {
 }
 
 io.on('connection', onConnection);
+
+app.get('/api/hello', (req, res) => {
+  res.send({ express: 'Hello From Express' });
+});
 
 http.listen(port, () => console.log('listening on port ' + port));

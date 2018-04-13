@@ -1,15 +1,23 @@
 {
   "name": "abc.app",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/sorja/abc.app",
-  "author": "Miro Sorja <ping@mirosorja.com>",
-  "license": "MIT",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "react-scripts": "1.1.4",
     "express": "^4.16.3",
     "socket.io": "^2.1.0"
   },
   "devDependencies": {
-    "nodemon": "^1.17.3"
-  }
+    "nodemon": "^1.17.3",
+    "concurrently": "^3.5.1"
+  },
+  "scripts": {
+    "start": "concurrently --kill-others-on-fail \"nodemon server\" \"react-scripts start\"",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "http://localhost:5000"
 }
