@@ -5,3 +5,5 @@ Repository for University of Helsinki course TKT21010
 
 ## Notes
 
+### Known bugs
+Drawing/s reset on resize. Incorrectly populated from history state

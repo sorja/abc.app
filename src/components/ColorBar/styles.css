@@ -1,0 +1,21 @@
+  .colors {
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    position: absolute;
+    top: 10;
+    left: 10;
+    }
+  
+  .color {
+    display: inline-block;
+    height: 48px;
+    width: 48px;
+  }
+  
+  .color.black { background-color: black; }
+  .color.red { background-color: red; }
+  .color.green { background-color: green; }
+  .color.blue { background-color: blue; }
+  .color.yellow { background-color: yellow; }
+  

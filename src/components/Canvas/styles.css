@@ -3,28 +3,13 @@ canvas {
 }
 
 .whiteboard {
-    height: 100%;
-    width: 100%;
     position: absolute;
+    top: 20;
+    bottom: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    top: 0;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
   }
-  
-  .colors {
-    position: fixed;
-  }
-  
-  .color {
-    display: inline-block;
-    height: 48px;
-    width: 48px;
-  }
-  
-  .color.black { background-color: black; }
-  .color.red { background-color: red; }
-  .color.green { background-color: green; }
-  .color.blue { background-color: blue; }
-  .color.yellow { background-color: yellow; }
   

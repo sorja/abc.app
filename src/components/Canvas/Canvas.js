@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-
 import './styles.css';
-
+const OFFSET = 20;
 export default class Canvas extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
+
     this.state = {
-      color: 'black',
+      color: props.color || "black",
       drawing: false,
       context: null,
+      history: []
     }
   }
 
@@ -22,32 +24,41 @@ export default class Canvas extends Component {
     this.onResize();
     this.setState({ context: this.canvas.getContext('2d') });
   }
-  
+
   componentWillUnmount() {
     this.props.socket.unregisterHandler();
   }
 
   drawLine = (x0, y0, x1, y1, color, emit) => {
-    const { context } = this.state
+    const { context} = this.state
     context.beginPath();
-    context.moveTo(x0, y0);
-    context.lineTo(x1, y1);
+    context.moveTo(x0, y0-OFFSET);
+    context.lineTo(x1, y1-OFFSET);
     context.strokeStyle = color;
     context.lineWidth = 2;
     context.stroke();
     context.closePath();
 
-    if (!emit) { return; }
-    var w = this.canvas.width;
-    var h = this.canvas.height;
+    if (!this.canvas) { return; }
 
-    this.props.socket.socket.emit('drawing', {
+     const w = this.canvas.width;
+     const h = this.canvas.height;
+
+    const point = {
       x0: x0 / w,
       y0: y0 / h,
       x1: x1 / w,
       y1: y1 / h,
       color: color
-    });
+    };
+
+    if (emit) {
+      this.props.socket.socket.emit('drawing', point);
+    }
+
+    // if (!fromHistory){
+    //   this.setState({ history: history.concat([point]) });
+    // }
   }
 
   onMouseDown = (e) => {
@@ -58,19 +69,13 @@ export default class Canvas extends Component {
   onMouseUp = (e) => {
     if (!this.state.drawing) { return; }
     this.setState({ drawing: false });
-    this.drawLine(this.state.x, this.state.y, e.clientX, e.clientY, this.state.color, true);
+    this.drawLine(this.state.x, this.state.y, e.clientX, e.clientY, this.props.color, true);
   }
 
   onMouseMove = (e) => {
     if (!this.state.drawing) { return; }
-    this.drawLine(this.state.x, this.state.y, e.clientX, e.clientY, this.state.color, true);
+    this.drawLine(this.state.x, this.state.y, e.clientX, e.clientY, this.props.color, true);
     this.setState({ x: e.clientX, y: e.clientY });
-  }
-
-  onColorUpdate = (e) => {
-    this.setState({
-      color: e.target.className.split(' ')[1]
-    })
   }
 
   // limit the number of events per second
@@ -88,12 +93,15 @@ export default class Canvas extends Component {
 
   onResize = () => {
     this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
+    this.canvas.height = window.innerHeight - OFFSET;
+    // this.state.history.forEach(v => this.drawLine({ ...v, emit: null, fromHistory: true }))
   }
-  
+
   onDrawingEvent = (data) => {
+    if (!this.canvas) { return; }
     var w = this.canvas.width;
     var h = this.canvas.height;
+
     this.drawLine(
       data.x0 * w,
       data.y0 * h,
@@ -104,27 +112,8 @@ export default class Canvas extends Component {
   }
 
   render() {
-    const colors = [
-      "black",
-      "red",
-      "green",
-      "blue",
-      "yellow",
-    ]
     return (
-      <div>
-        <canvas ref={el => this.canvas = el} className="whiteboard"></canvas>
-        <div className="colors">
-          {
-            colors.map((color, index) =>
-              <div
-                key={index}
-                className={`color ${color}`}
-                onClick={this.onColorUpdate} />
-            )
-          }
-        </div>
-      </div>
+      <canvas ref={el => this.canvas = el} className="whiteboard" />
     );
   }
 }

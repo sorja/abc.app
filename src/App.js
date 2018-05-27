@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
-import Canvas from './containers/Canvas';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import logo from './logo.svg';
-import './App.css';
+import Home from './components/Home';
+import Game from './components/Game';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <Canvas />
-      </div>
+      <Router>
+        <div className="app">
+          <div>
+            <Link to='/'>Home</Link> {'\t'}|
+            <Link to="/canvas">Game</Link>
+          </div>
+
+          <Route exact path="/" component={Home} />
+          <Route path="/canvas" component={Game} />
+          {/* <Route path="/topics" component={Topics} /> */}
+        </div>
+      </Router>
     );
   }
 }
